@@ -1,66 +1,67 @@
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 
-<!-- Navbar -->
-<nav class="bg-white shadow-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      
-      <!-- Logo -->
-      <div class="text-2xl font-bold text-indigo-600 tracking-tight">
-        Kost Ibu Siti
-      </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-      <!-- Menu Desktop -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="index.php" class="text-gray-600 hover:text-indigo-600 transition duration-200 font-medium">Beranda</a>
-        <a href="kamar.php" class="text-gray-600 hover:text-indigo-600 transition duration-200 font-medium">Kamar</a>
-        <a href="fasilitas.php" class="text-gray-600 hover:text-indigo-600 transition duration-200 font-medium">Fasilitas</a>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand ps-3 pe-5" href="index.php">Kost Ibu Siti</a>
 
-      <!-- CTA Desktop -->
-      <div class="hidden md:block">
-        <a href="booking.php" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-200 shadow-sm">
-          Booking Sekarang
-        </a>
-      </div>
+    <!-- Hamburger Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- Hamburger Icon -->
-      <div class="md:hidden flex items-center">
-        <button id="menu-btn" class="focus:outline-none">
-          <svg id="menu-icon" class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor"
-               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path id="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16" />
-            <path id="menu-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+    <!-- Menu -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="kamar.php">Kamar</a></li>
+        <li class="nav-item"><a class="nav-link" href="fasilitas.php">Fasilitas</a></li>
+        <li class="nav-item"><a class="nav-link" href="penghuni.php">Penghuni</a></li>
+        <li class="nav-item"><a class="nav-link" href="kontrak.php">Kontrak</a></li>
+        <li class="nav-item"><a class="nav-link" href="pembayaran.php">Pembayaran</a></li>
+        <li class="nav-item"><a class="nav-link" href="keluhan.php">Keluhan</a></li>
+        <li class="nav-item"><a class="nav-link" href="pengunjung.php">Pengunjung</a></li>
+        <li class="nav-item"><a class="nav-link" href="booking.php">Booking</a></li>
+      </ul>
+
+      <!-- Login Status -->
+      <ul class="navbar-nav ms-auto">
+        <?php if (isset($_SESSION['username'])): ?>
+          <li class="nav-item">
+            <span class="nav-link">Halo, <strong><?= htmlspecialchars($_SESSION['username']) ?></strong></span>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Akun
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="ganti_password.php">Ganti Password</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="logout.php">Logout</a></li>
+            </ul>
+          </li>
+        <?php else: ?>
+          <li class="nav-item">
+            <a class="nav-link text-success" href="login.php">Login</a>
+          </li>
+        <?php endif; ?>
+      </ul>
     </div>
   </div>
-
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-3 transition-all duration-300">
-    <a href="index.php" class="block text-gray-700 hover:text-indigo-600 font-medium">Beranda</a>
-    <a href="kamar.php" class="block text-gray-700 hover:text-indigo-600 font-medium">Kamar</a>
-    <a href="fasilitas.php" class="block text-gray-700 hover:text-indigo-600 font-medium">Fasilitas</a>
-    <a href="booking.php" class="block text-center bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-      Booking Sekarang
-    </a>
-  </div>
-
-  <!-- Script Toggle Menu & Icon -->
-  <script>
-    const btn = document.getElementById('menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const openIcon = document.getElementById('menu-open');
-    const closeIcon = document.getElementById('menu-close');
-
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-      openIcon.classList.toggle('hidden');
-      closeIcon.classList.toggle('hidden');
-    });
-  </script>
 </nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
